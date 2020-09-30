@@ -6,7 +6,7 @@
 yarn install
 ```
 
-### Run
+### Run and build (linux, mac, windows)
 
 ```
 yarn start
