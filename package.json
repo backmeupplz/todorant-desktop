@@ -1,8 +1,17 @@
 {
   "name": "Todorant",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "author": "Todorant <n@borodutch.com>",
+  "description": "Use cognitive psychology to trick your brain into getting things done with the only To Do manager you will ever need.",
+  "license": "MIT",
+  "keywords": [
+    "Todo",
+    "Todorant",
+    "To",
+    "Do",
+    "Tasks"
+  ],
   "scripts": {
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
