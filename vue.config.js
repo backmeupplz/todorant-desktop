@@ -5,8 +5,9 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
-        productName: "Todorant"
-      }
-    }
-  }
+        productName: 'Todorant',
+      },
+      preload: 'src/public/scripts/preloader.ts',
+    },
+  },
 }

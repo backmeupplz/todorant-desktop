@@ -1,4 +1,5 @@
-import { app, BrowserWindow, session } from 'electron'
+import { app, BrowserWindow, session, shell } from 'electron'
+import path from 'path'
 
 let win: BrowserWindow | null
 
@@ -9,10 +10,13 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     webPreferences: {
-      devTools: false,
-      nodeIntegration: false,
+      nodeIntegration: true,
+      enableRemoteModule: true,
+      devTools: true,
       nativeWindowOpen: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
   })
   win.setMenuBarVisibility(false)
@@ -50,4 +54,22 @@ app.on('ready', async () => {
     callback({ cancel: false, requestHeaders: details.requestHeaders })
   })
   createWindow()
+})
+
+app.on('web-contents-created', (e, contents) => {
+  const urls = [
+    'todorant.com',
+    'auth.todorant.com',
+    'accounts.google.com',
+    'appleid.apple.com',
+    'oauth.telegram.org',
+    'www.facebook.com',
+  ]
+  contents.on('will-navigate', (e, url) => {
+    const splittedUrl = url.split('/')[2]
+    if (!urls.includes(splittedUrl)) {
+      e.preventDefault()
+      require('open')(url)
+    }
+  })
 })
