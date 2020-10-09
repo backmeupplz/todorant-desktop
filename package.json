@@ -17,7 +17,7 @@
     "electron:serve": "vue-cli-service electron:serve",
     "increment-version": "versiony public/version.json --minor && versiony package.json --minor && git add . && git commit -m 'new version' && git push",
     "postinstall": "electron-builder install-app-deps",
-    "start": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac",
+    "start": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
     "run-linux": "rm -rf dist_electron && yarn electron:build && cd dist_electron && ./*.AppImage --no-sandbox",
     "electron:generate-icons": "electron-icon-builder --input=./src/public/icon.png --output=build --flatten"
   },
