@@ -6,6 +6,9 @@ import ElectronStore from '@/store/'
 let titlebar: Titlebar
 
 window.addEventListener('DOMContentLoaded', () => {
+  if (process.platform === 'darwin') {
+    return
+  }
   titlebar = new Titlebar({
     backgroundColor: Color.fromHex(ElectronStore.color!),
     menu: menu(),
@@ -14,6 +17,9 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 window.addEventListener('click', (event) => {
+  if (process.platform === 'darwin') {
+    return
+  }
   const darkElement = document.getElementsByClassName(
     'v-sheet'
   )[0] as HTMLElement
