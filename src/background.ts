@@ -1,4 +1,5 @@
 import { app, BrowserWindow, session, shell } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import path from 'path'
 
 let win: BrowserWindow | null
@@ -21,7 +22,7 @@ function createWindow() {
   })
   win.setMenuBarVisibility(false)
   win.loadURL('https://todorant.com')
-
+  autoUpdater.checkForUpdatesAndNotify()
   win.on('closed', () => {
     win = null
   })
