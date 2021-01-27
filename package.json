@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "private": true,
   "author": "Todorant <n@borodutch.com>",
+  "repository": "https://github.com/backmeupplz/todorant-releases",
   "description": "Use cognitive psychology to trick your brain into getting things done with the only To Do manager you will ever need.",
   "license": "MIT",
   "keywords": [
@@ -17,7 +18,8 @@
     "electron:serve": "vue-cli-service electron:serve",
     "increment-version": "versiony public/version.json --minor && versiony package.json --minor && git add . && git commit -m 'new version' && git push",
     "postinstall": "electron-builder install-app-deps",
-    "start": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
+    "build": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
+    "buildAndPublish": "yarn electron:build -p always --linux appimage --win nsis --mac",
     "run-linux": "rm -rf dist_electron && yarn electron:build && cd dist_electron && ./*.AppImage --no-sandbox",
     "electron:generate-icons": "electron-icon-builder --input=./src/public/icon.png --output=build --flatten"
   },
@@ -27,6 +29,7 @@
     "@types/auto-launch": "^5.0.1",
     "auto-launch": "^5.0.5",
     "custom-electron-titlebar": "^3.2.4",
+    "electron-updater": "^4.3.5",
     "open": "^7.3.0",
     "vue": "^2.6.10"
   },
