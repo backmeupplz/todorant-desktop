@@ -1,18 +1,40 @@
 require('dotenv').config()
-const { notarize } = require('electron-notarize')
+const fs = require('fs')
+const path = require('path')
+var electron_notarize = require('electron-notarize')
 
-exports.default = async function notarizing(context) {
-  const { electronPlatformName, appOutDir } = context
-  if (electronPlatformName !== 'darwin') {
+module.exports = async function (params) {
+  if (process.platform !== 'darwin') {
     return
   }
 
-  const appName = context.packager.appInfo.productFilename
+  console.log('afterSign hook triggered', params)
 
-  return await notarize({
-    appBundleId: 'com.todorant.macos',
-    appPath: `${appOutDir}/${appName}.app`,
-    appleId: process.env.APPLEID,
-    appleIdPassword: process.env.APPLEIDPASS,
-  })
+  let appId = 'com.todorant.mac'
+
+  let appPath = path.join(
+    params.appOutDir,
+    `${params.packager.appInfo.productFilename}.app`
+  )
+  if (!fs.existsSync(appPath)) {
+    console.log('skip')
+    return
+  }
+
+  console.log(
+    `Notarizing ${appId} found at ${appPath} with Apple ID ${process.env.APPLE_ID}`
+  )
+
+  try {
+    await electron_notarize.notarize({
+      appBundleId: appId,
+      appPath: appPath,
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_ID_PASSWORD,
+    })
+  } catch (error) {
+    console.error(error)
+  }
+
+  console.log(`Done notarizing ${appId}`)
 }

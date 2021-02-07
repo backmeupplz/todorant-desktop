@@ -14,6 +14,9 @@ module.exports = {
           entitlementsInherit: 'build/entitlements.mac.plist',
         },
         afterSign: 'scripts/notarize.js',
+        dmg: {
+          sign: false,
+        },
       },
       preload: 'src/public/scripts/preloader.ts',
     },
