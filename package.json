@@ -19,7 +19,7 @@
     "increment-version": "versiony package.json --patch && git add . && git commit -m 'new version' && git push",
     "postinstall": "electron-builder install-app-deps",
     "build": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
-    "build-and-publish": "yarn increment-version && yarn electron:build -p always --linux appimage --win nsis --mac dmg",
+    "build-and-publish": "yarn increment-version && yarn electron:build -p always --linux appimage --win nsis --mac dmg --linux snap",
     "run-linux": "rm -rf dist_electron && yarn electron:build && cd dist_electron && ./*.AppImage --no-sandbox",
     "electron:generate-icons": "electron-icon-builder --input=./src/public/icon.png --output=build --flatten"
   },
