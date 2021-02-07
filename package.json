@@ -1,6 +1,6 @@
 {
   "name": "Todorant",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "private": true,
   "author": "Todorant <n@borodutch.com>",
   "repository": "https://github.com/backmeupplz/todorant-releases",
@@ -16,10 +16,10 @@
   "scripts": {
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
-    "increment-version": "versiony public/version.json --minor && versiony package.json --minor && git add . && git commit -m 'new version' && git push",
+    "increment-version": "versiony package.json --minor && git add . && git commit -m 'new version' && git push",
     "postinstall": "electron-builder install-app-deps",
     "build": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
-    "buildAndPublish": "yarn electron:build -p always --linux appimage --win nsis --mac",
+    "buildAndPublish": "yarn electron:build -p always --linux appimage --win nsis --mac dmg",
     "run-linux": "rm -rf dist_electron && yarn electron:build && cd dist_electron && ./*.AppImage --no-sandbox",
     "electron:generate-icons": "electron-icon-builder --input=./src/public/icon.png --output=build --flatten"
   },
@@ -39,6 +39,7 @@
     "@vue/cli-service": "^4.0.5",
     "electron": "^10.1.2",
     "electron-devtools-installer": "^3.1.0",
+    "electron-notarize": "^1.0.0",
     "flat": "^5.0.0",
     "prettier": "prettier/prettier#cd2b8a32b5ef77eb0047e7517b1ea22d605a094a",
     "sass": "^1.23.3",
@@ -67,5 +68,13 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "build": {
+    "mac": {
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    },
+    "afterSign": "scripts/notarize.js"
+  }
 }
