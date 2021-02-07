@@ -7,7 +7,7 @@ module.exports = {
       builderOptions: {
         productName: 'Todorant',
         artifactName: 'todorant-${version}-${os}-${arch}.${ext}',
-        publish: ['github'],
+        publish: [{ provider: 'github', private: false }],
         mac: {
           hardenedRuntime: true,
           entitlements: 'build/entitlements.mac.plist',
