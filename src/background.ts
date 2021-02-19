@@ -66,7 +66,7 @@ app.on('web-contents-created', (e, contents) => {
     'oauth.telegram.org',
     'www.facebook.com',
   ]
-  contents.on('will-navigate', (e, url) => {
+  contents.on('new-window', (e, url) => {
     const splittedUrl = url.split('/')[2]
     if (!urls.includes(splittedUrl)) {
       e.preventDefault()
