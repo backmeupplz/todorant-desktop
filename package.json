@@ -1,0 +1,72 @@
+{
+  "name": "todorant-desktop",
+  "version": "1.0.14",
+  "private": true,
+  "author": "Todorant <n@borodutch.com>",
+  "repository": "https://github.com/backmeupplz/todorant-releases",
+  "description": "Use cognitive psychology to trick your brain into getting things done with the only To Do manager you will ever need.",
+  "license": "MIT",
+  "keywords": [
+    "Todo",
+    "Todorant",
+    "To",
+    "Do",
+    "Tasks"
+  ],
+  "scripts": {
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "increment-version": "versiony package.json --patch && git add . && git commit -m 'new version' && git push",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "rm -rf dist_electron && yarn electron:build --win nsis --linux deb --mac --linux snap",
+    "build-and-publish": "yarn increment-version && yarn electron:build -p always --linux appimage --win nsis --mac --linux snap",
+    "run-linux": "rm -rf dist_electron && yarn electron:build && cd dist_electron && ./*.AppImage --no-sandbox",
+    "electron:generate-icons": "electron-icon-builder --input=./src/public/icon.png --output=build --flatten"
+  },
+  "main": "background.js",
+  "dependencies": {
+    "@treverix/remote": "^0.1.1",
+    "@types/auto-launch": "^5.0.1",
+    "auto-launch": "^5.0.5",
+    "custom-electron-titlebar": "^3.2.4",
+    "electron-updater": "^4.3.5",
+    "open": "^7.3.0",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^1.4.4",
+    "@vue/cli-plugin-typescript": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
+    "electron": "^10.1.2",
+    "electron-devtools-installer": "^3.1.0",
+    "electron-notarize": "^1.0.0",
+    "flat": "^5.0.0",
+    "prettier": "prettier/prettier#cd2b8a32b5ef77eb0047e7517b1ea22d605a094a",
+    "sass": "^1.23.3",
+    "sass-loader": "^8.0.0",
+    "typescript": "^3.7.2",
+    "versiony-cli": "^1.3.0",
+    "vue-cli-plugin-electron-builder": "~2.0.0-rc.4",
+    "vue-template-compiler": "^2.5.21",
+    "vuex-class": "^0.3.2",
+    "vuex-module-decorators": "^0.17.0"
+  },
+  "prettier": {
+    "pluginSearchDirs": [
+      "."
+    ],
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
